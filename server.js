@@ -13,6 +13,8 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true,
 })
 
+//Middleware: app.use(express.static(path.join(__dirname, './public')))
+
 
 //Endpoints
 
@@ -27,12 +29,12 @@ app.get("/styles", (req, res) => {
 app.get("/js", (req, res) => {
     res.sendFile(path.join(__dirname,'./public/index.js'))
 })
-
+//
 app.get('/api/robots', (req, res) => {
     try {
-        rollbar.error('Could Not Get Bots')
-        res.status(200).send(botsArr)
+        res.status(200).send(bots)
     } catch (error) {
+        rollbar.error('Could Not Get Bots')
         console.log('ERROR GETTING BOTS', error)
         res.sendStatus(400)
     }
